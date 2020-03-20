@@ -4,7 +4,7 @@
   "description": "TypeFast is a simple typing game, where users could train on typing speed. Also, this game provides some other new experience to users during the game as there  are a lot of animations, and greate user interface.",
   "main": "webpack.config.js",
   "scripts": {
-    "webpack": "webpack --mode=development --watch"
+    "webpack": "webpack --mode development --watch"
   },
   "repository": {
     "type": "git",

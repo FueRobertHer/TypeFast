@@ -2,6 +2,7 @@ html, body {
   width:  100%;
   height: 100%;
   margin: 0;
+  font-family: 'Iceland';
 }
 
 body {
@@ -64,9 +65,9 @@ body {
   background: none;
   border: none;
   text-align: center;
-  font-size: 7em;
+  font-size: 6em;
   font-family: 'Iceland', cursive;
-  margin: 20px 0 20px 0;
+  margin: 20px 0;
   cursor: pointer;
 }
 
@@ -74,7 +75,7 @@ body {
   outline: none;
 }
 
-#start-btn span {
+#start-btn {
   /* color: rgba(22, 76, 167, 1);
   font-size: 24px;
   font-weight: 500;
@@ -89,7 +90,7 @@ body {
   animation: neon1 1.5s ease-in-out infinite alternate;
 }
 
-#start-btn span:hover {
+#start-btn:hover {
   /* color: rgba(22, 76, 167, 1);
   font-size: 24px;
   font-weight: 500;
@@ -202,12 +203,12 @@ canvas {
   text-align: center;
 }
 
-#user-input input:focus {
+/* #user-input input:focus {
   background: none;
   text-indent: 12px;
   box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2);
- }
+} */
 
- ::-webkit-input-placeholder {
+::-webkit-input-placeholder {
    text-align: center;
 }

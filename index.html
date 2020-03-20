@@ -11,11 +11,11 @@
 </head>
 <body>
   <div class="header-container">
+    <div id="score-broad" class="glow">
+    </div>
     <div class="score-container">
       <span id="score"></span>
       <!-- <button class="btn-mute" id="music"><span>PAUSE MUSIC</span></button> -->
-    </div>
-    <div id="score-broad" class="glow">
     </div>
     <!-- <div class="music">
     </div> -->
@@ -24,14 +24,16 @@
   <div class="main-container">
     <div class="main-header-container" id="main-header">
       <div id="start-header">
-        <button id="start-btn"><span>Start Game</span></button>
-        <div id="instruction">
+        <button id="start-btn">Easy</button>
+        <button id="start-btn">Medium</button>
+        <button id="start-btn">Hard</button>
+        <!-- <div id="instruction">
           <span>Click start game !!</span>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="board-container">
-      <canvas width="1000" height="800" id="canvas"></canvas>
+      <canvas width="1000" height="600" id="canvas"></canvas>
       <div id="user-input">
         <input type='text' placeholder='Start Typing....' id='text'>
       </div>

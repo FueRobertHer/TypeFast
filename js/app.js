@@ -4,19 +4,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas");
   const c = canvas.getContext('2d');
 
-  const startBtn = document.getElementById("start-btn");
+  const startBtns = document.querySelectorAll("#start-btn");
   const score = document.getElementById("score");
   const score_board = document.getElementById("score-broad");
   const points = localStorage.getItem("score") || 0;
 
-  const game = new Game(c);
+  // const game = new Game(c);
+  const newGame = diff => {
+    return new Game(c, diff)
+  }
 
   score_board.innerHTML = `<span>Highest: ${points} </span>`;
   score.style.display = "none";
 
-  startBtn.addEventListener("click", () => {
-    game.playGame();
-  });
+  startBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      newGame(btn.innerText).playGame()
+    })
+  })
 
   // const config = {
   //   childList: true

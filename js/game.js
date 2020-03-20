@@ -5,9 +5,10 @@ import Node from './node';
 const randomWords = require('random-words');
 
 class Game {
-  constructor(c) {
+  constructor(c, diff) {
     // initialize board, boxes, speed, music
     this.c = c;
+    this.diff = diff
     this.score = document.getElementById("score");
     this.audio = document.getElementById("audio");
     this.input = document.getElementById("user-input");
@@ -16,6 +17,7 @@ class Game {
     this.startBtn = document.getElementById("start-btn");
     this.highest = document.querySelector("score-board");
     this.highestBoard = document.getElementById("score-broad");
+    this.book = []
 
     this.initializeGame();
     this.animate = this.animate.bind(this);
@@ -26,9 +28,9 @@ class Game {
     this.currentScore = 0;
     this.highScore = parseInt(localStorage.getItem("score")) || 0;
     this.gameOver = true;
-    this.spawnY = 25;
+    this.spawnY = 0;
     this.spawnRate = 2000; 
-    this.spawnRateOfDescent = 0.4;
+    this.spawnRateOfDescent = .8;
     this.lastSpawn = -1;
     this.boxes = new LinkedList();
     this.words = new Map();
@@ -37,6 +39,7 @@ class Game {
     this.audio.load();
     this.listenToInput();
     this.listenToKey();
+    this.fillBook()
   }
   
   // function to start the gamewet
@@ -53,6 +56,7 @@ class Game {
   }
     
   keyDown(e) {
+    if (e.key === "Enter") this.inputField.value = "";
     if (e.keyCode === 27 && !this.gameOver) this.inputField.value = "";
     if (e.keyCode === 13 && this.gameOver) this.playGame();
   }
@@ -72,16 +76,27 @@ class Game {
         this.words.delete(userInput);
 
         e.target.value = "";
-        this.currentScore++;
+        this.currentScore += Math.floor(userInput.length / 2);
         this.score.innerText = `Score: ${this.currentScore}`;
       }
     })
+  }
+
+  fillBook() {
+    if (this.book.length < 20) this.book.push(randomWords())
+  }
+
+  autoFocus() {
+    this.inputField.focus()
   }
   
   animate() {
     if (!this.gameOver) {
       // console.log(this.boxes);
       // console.log(this.words);
+
+      this.autoFocus()
+      this.fillBook()
       
       const time = Date.now();
       if (this.currentScore > this.highScore) this.highestBoard.innerText = this.currentScore;
@@ -122,7 +137,7 @@ class Game {
       if (this.boxes.head.val.y >= this.c.canvas.height) this.gameOver = true;
     } else {
         this.startHeader.style.display = "flex";
-        this.startBtn.innerHTML = "<span>Restart Game</span>";
+        // this.startBtn.innerHTML = "<span>Restart Game</span>";
 
         let highestScore = localStorage.getItem("score");
         highestScore = Math.max(highestScore, this.currentScore);
@@ -135,7 +150,18 @@ class Game {
   }
 
   spawnRandomObject() {
-    const word = randomWords();
+    let word = this.book.shift();
+    switch (this.diff) {
+      case "Easy":
+        while (word.length > 5) word = this.book.shift()
+        break;
+      case "Medium":
+        while (word.length > 7 || word.length < 4) word = this.book.shift()
+        break;
+      case "Hard":
+        while (word.length < 6) word = this.book.shift()
+        break;
+    }
 
     let x = Math.random() * 900;
 
